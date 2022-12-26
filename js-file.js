@@ -1,24 +1,43 @@
-let items = ['Rock','Paper','Scissors'];
-
+let items = ['rock','paper','scissors'];
 function getComputerChoice(item){
     return items[Math.floor(Math.random()*items.length)];
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
+//Play single round
 function playRound(playerSelection, computerSelection){
-    if (playerSelection !== 'Rock' | 'Paper' | 'Scissors'){
-        return "Please input your selection correctly.";
+    const win = `You win! ${playerSelection} beats ${computerSelection}.`;
+    const lose = `You lose! ${computerSelection} beats ${playerSelection}.`;
+    const draw = `It's a draw! Both of you selected ${playerSelection}.`;
+
+    if (playerSelection !== 'rock' | 'paper' | 'scissors'){
+        return "Please enter your selection correctly.";
     } else if (playerSelection == computerSelection) {
-        return `It's a draw! Both of you selected ${playerSelection}.`;
-    } else if ((playerSelection == 'Rock' && computerSelection == 'Paper') 
-    || (playerSelection == 'Paper' && computerSelection == 'Scissors') 
-    || (playerSelection == 'Scissors' && computerSelection == 'Rock')){
-        return `You lose! ${computerSelection} beats ${playerSelection}.`
-    } else ((playerSelection == 'Rock' && computerSelection == 'Scissors')
-    || (playerSelection == 'Paper' && computerSelection == 'Rock')
-    || (playerSelection == 'Scissors' && computerSelection == 'Paper'))
-        return `You win! ${playerSelection} beats ${computerSelection}.`
+        return draw;
+    } else if ((playerSelection == 'rock' && computerSelection == 'paper') || 
+    (playerSelection == 'paper' && computerSelection == 'scissors') || 
+    (playerSelection == 'scissors' && computerSelection == 'rock')){
+        return lose;
+        computerScore++;
+    } else ((playerSelection == 'rock' && computerSelection == 'scissors') || 
+    (playerSelection == 'paper' && computerSelection == 'rock')||
+    (playerSelection == 'scissors' && computerSelection == 'paper'))
+        return win;
+        playerScore++;
 }
 
-const playerSelection = 'Rock';
+//Loop 5 rounds and keep score
+function game(){
+    for (let i = 0; i < 5; i++) {
+        playRound();
+        console.log(`Player: ${playerScore} Computer: ${computerScore}`);
+    }
+}
+
+game();
+
+const playerSelection = prompt('Choose from rock, paper, or scissors.').toLowerCase();
 const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+// console.log(playRound(playerSelection, computerSelection));
