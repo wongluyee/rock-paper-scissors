@@ -8,6 +8,7 @@ so that both playRound() function and game() function can access it.
 */
 let playerScore = 0;
 let computerScore = 0;
+let incorrectInput = 0;
 
 function playRound (playerSelection, computerSelection){
   const win = `You win! ${playerSelection} beats ${computerSelection}.`;
@@ -34,6 +35,7 @@ function playRound (playerSelection, computerSelection){
         return `Your score: ${playerScore}, Computer's score: ${computerScore}`;
     } else {
         console.log("Please enter your selection correctly.");
+        incorrectInput++;
     }
 }
 
@@ -48,6 +50,11 @@ function game(){
         if not player selection and computer selection will become undefined.
         */
         console.log(playRound(playerSelection, computerSelection));
+        
+        if (incorrectInput > 0) {
+            i-=1;
+            incorrectInput = 0;
+        }
     }
     if (playerScore > computerScore) {
         console.log("Congratulations!You win!");
